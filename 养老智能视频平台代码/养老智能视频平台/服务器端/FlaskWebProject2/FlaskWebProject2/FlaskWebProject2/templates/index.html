@@ -1,0 +1,40 @@
+﻿<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>CCTV</title>
+</head>
+
+<body>
+    <h1>CCTV</h1>
+    <h3><img src="{{ url_for('video_feed') }}"></h3>
+    <hr>
+
+    <form action="/control" name="control" method="post" target="iframe">
+        密码：<input type="password" name="pwd" />
+        <input type="submit" value="左转" name="lr" />
+        <input type="submit" value="右转" name="lr" />
+    </form>
+    <iframe id="iframe" name="iframe" style="display:none;"></iframe>
+    <p> by Yangning 2019.9.22</p>
+</body>
+
+</html>
+
+<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+//发送消息
+socket.emit('request_for_response',{'param':'value'});
+//监听回复的消息
+socket.on('response',function(data){
+    if (data.code == '200'){
+        console.log(data.msg);
+    }
+    else{
+        console.log(data.msg);
+    }
+});
+
+</script>-->

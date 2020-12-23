@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>直播视频</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, 
+                                     initial-scale=1.0, 
+                                     maximum-scale=1.0, 
+                                     user-scalable=no">
+    <!-- 引入 Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/layer.js"></script>
+
+    <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+    <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+    <!--[if lt IE 9]>
+         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+
+    <style>
+        h1 {
+            color: white;
+            text-shadow: 0px 0px 10px #000;
+            margin-top: 50px;
+            margin-left: 50px;
+        }
+
+        #footer_div {
+            border-radius: 25px;
+            border: 2px solid #8AC007;
+            padding: 0;
+        }
+
+        #footer_div li {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #footer_div li i {
+            font-size: 30px;
+        }
+
+        #info {
+            margin-top: 10px;
+            margin-bottom: 100px;
+        }
+
+        #main {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+
+<body style="background: url('images/beijing1.png') no-repeat fixed;background-size:cover;">
+    <h1>直播视频</h1>
+
+    <div id="main" class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                房间1:
+            </h3>
+        </div>
+        <div>
+            <img src="http://192.168.137.1/video_feed"
+                class="img-responsive center-block" alt="响应式图像">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    调整摄像头
+                </h3>
+            </div>
+            <div class="btn-group btn-group-justified " role="group">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="fn()">上</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="f1()">下</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="f2()">左</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default" onclick="fn3()">右</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        人形自动跟踪开关:<button type="button" class="btn btn-default">开</button>
+        <br />
+        <br />
+        自动天气播报开关:<button type="button" class="btn btn-default">开</button>
+		<br />
+		<br />
+		吃药提醒开关:<button type="button" class="btn btn-default">开</button>
+    </div>
+    <div id="info" class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                房间信息
+            </h3>
+        </div>
+        <table class="table">
+            <th>信息</th>
+            <th>状态</th>
+            <tr>
+                <td>设备工作状态</td>
+                <td >正常</td>
+            </tr>
+            <tr>
+                <td>室内温度</td>
+                <td id="p2"></td>
+                <td>℃</td>
+            </tr>
+			<tr>
+			    <td>室内湿度</td>
+			    <td id="p3">#</td>
+			    <td>%</td>
+			</tr>
+            <tr>
+                <td>老人摔倒监控</td>
+                <td>正常</td>
+            </tr>
+            <tr>
+                <td>空气采集</td>
+                <td id="p5"></td>
+            </tr>
+            <tr>
+                <td>老人呼救</td>
+                <td>0</td>
+                <td>次</td>
+            </tr>
+            <tr>
+                <td>光照采集</td>
+                <td id="p4"></td>
+            </tr>
+			<tr>
+			    <td>火焰报警</td>
+			    <td id="p6"></td>
+			</tr>
+
+        </table>
+    </div>
+
+
+    <!-- 1.顶部固定：navbar-fixed-top
+    2.底部固定：navbar-fixed-bottom -->
+    <footer class="navbar-fixed-bottom">
+        <div id="footer_div" class="well" style="text-align: center;">
+            <ul class="nav nav-pills" style="display: inline-block;float: none;">
+                <li class="active"><a href="#">
+                        <i class="glyphicon glyphicon-signal"></i>
+                        <!-- 当前状态 -->
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-align-justify"></i>
+                        <!-- 设备列表 -->
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-film"></i>
+                        <!-- 回放与记录 -->
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        <!-- 设置 -->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+
+    <!-- 包括所有已编译的插件 -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
+<script>
+	function fn() {
+		$.ajax({
+			url: "http://192.168.137.1/Setduojijia",
+			//url: "http://blog.mrzul.ml/Dy/resolve", //请求的url地址
+			dataType: "text", //返回格式为json
+			type: "GET", //请求方式
+			success: function() {
+				//这个是jquery封装好的一个隐藏属性
+			},
+			error: function(res, req) {
+				//请求出错处理
+				console.log(req)
+			}
+		});
+	}
+</script>
+<script>
+	function f1(){
+		$.ajax({
+			url: "http://192.168.137.1/Setduojijian",
+			//url: "http://blog.mrzul.ml/Dy/resolve", //请求的url地址
+			dataType: "text", //返回格式为json
+			type: "GET", //请求方式
+			success: function() {
+				//这个是jquery封装好的一个隐藏属性
+			},
+			error: function(res, req) {
+				//请求出错处理
+				console.log(req)
+			}
+		});
+	}
+
+	function f2(){
+		$.ajax({
+			url: "http://192.168.137.1/control_left",
+			//url: "http://blog.mrzul.ml/Dy/resolve", //请求的url地址
+			dataType: "text", //返回格式为json
+			type: "GET", //请求方式
+			success: function() {
+				//这个是jquery封装好的一个隐藏属性
+			},
+			error: function(res, req) {
+				//请求出错处理
+				console.log(req)
+			}
+		});
+	}
+
+	function fn3() {
+		$.ajax({
+			url: "http://192.168.137.1/control_right",
+			//url: "http://blog.mrzul.ml/Dy/resolve", //请求的url地址
+			dataType: "text", //返回格式为json
+			type: "GET", //请求方式
+			success: function() {
+				//这个是jquery封装好的一个隐藏属性
+			},
+			error: function(res, req) {
+				//请求出错处理
+				console.log(req)
+			}
+		});
+	}
+
+function sleep(delay) {
+  var start = (new Date()).getTime();
+  while ((new Date()).getTime() - start < delay) {
+    continue;
+  }
+}
+$(function getwendu(){
+	$.ajax({
+		url: "http://192.168.137.1/getwendu", //请求的url地址
+		dataType: "text",
+		type: "GET", //请求方式
+		success: function(data) {
+			$('#p2').text(data);
+			sleep(0);
+		    getwendu();
+		},
+		
+		error: function(res, req) {
+			//请求出错处理
+			console.log(req)
+		}
+	});
+})
+   
+function sleep(delay) {
+	  var start = (new Date()).getTime();
+	  while ((new Date()).getTime() - start < delay) {
+	    continue;
+	}
+}
+$(function getshidu(){
+	$.ajax({
+		url: "http://192.168.137.1/getshidu", //请求的url地址
+		dataType: "text",
+		type: "get", //请求方式
+		success: function(data) {
+			$('#p3').text(data);
+			sleep(0);
+			getshidu();
+		},
+		error: function(res, req) {
+			//请求出错处理
+			console.log(req)
+
+		}
+	});
+})
+  
+function sleep(delay) {
+	  var start = (new Date()).getTime();
+	  while ((new Date()).getTime() - start < delay) {
+	    continue;
+	}
+}
+$(function getLight(){
+	$.ajax({
+		url: "http://192.168.137.1/getLight", //请求的url地址
+		dataType: "text",
+		type: "get", //请求方式
+		success: function(data) {
+			var data2;
+			if(data ==1){
+				data2 = "无光";
+			}
+			else{
+				data2 = "有光";
+			}
+			$('#p4').text(data2);
+			sleep(0);
+			getLight();
+		},
+		error: function(res, req) {
+			//请求出错处理
+			console.log(req)
+		}
+	});
+})
+  
+function sleep(delay) {
+    var start = (new Date()).getTime();
+	while ((new Date()).getTime() - start < delay) {
+		continue;
+		}
+	}
+$(function getduqi(){
+	$.ajax({
+		url: "http://192.168.137.1/getduqi", //请求的url地址
+		dataType: "text",
+		type: "get", //请求方式
+		success: function(data) {
+			var data1;
+			if(data==1){
+				data1 = "良好";
+			}
+			else{
+				data1 = "不良好";
+			}
+			$('#p5').text(data1);
+			sleep(0);
+			getduqi();
+		},
+		error: function(res, req) {
+			//请求出错处理
+			console.log(req)
+		}
+	});
+	
+})
+  
+function sleep(delay) {
+	var start = (new Date()).getTime();
+	while ((new Date()).getTime() - start < delay){
+        continue;
+		}
+	}
+$(function gethuoyan(){
+	$.ajax({
+		url: "http://192.168.137.1/gethuoyan", //请求的url地址
+		dataType: "text",
+		type:"get", //请求方式
+		success: function(data) {
+			var  data3;
+			if(data==1){
+				data3 = "无火焰";
+			}
+			else{
+				data3 = "有火焰";
+			}
+			$('#p6').text(data3);
+			sleep(0);
+			gethuoyan();
+		},
+		error: function(res, req) {
+			//请求出错处理
+			console.log(req)
+		}
+	});
+})
+</script>
